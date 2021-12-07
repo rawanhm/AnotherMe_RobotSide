@@ -32,8 +32,9 @@ public class MessageListener implements MessageConnection.MessageListener {
     public void onMessageSent(Message message) {
         Log.d(TAG, "onMessageSent: " + message + " was sent successfully!");
     }
+
     // split message to know what type of service is needed
-    private String[] splitMessage(Message message){
+    private String[] splitMessage(Message message) {
         return message.getContent().toString().split(";");
     }
 
@@ -47,13 +48,24 @@ public class MessageListener implements MessageConnection.MessageListener {
         String[] splitMessage = splitMessage(message);
         String prefix = splitMessage[0];
 
-        Log.i(TAG,  prefix +  "Received");
+        Log.i(TAG, prefix + "Received");
         try {
-            switch (prefix){
+            switch (prefix) {
 
-                //if the recived service of type vision
+                //if the received service of type vision
                 case "vision":
                     command = new StreamVideoCommand(splitMessage);
+                    break;
+                //if the received service of type head
+                case "head":
+                    command = new HeadCommand(splitMessage);
+                    break;
+                case "move":
+                    command = new BaseCommand(splitMessage);
+                    break;
+                case "exit":
+                    System.exit(0);
+
                     break;
 
                 default:
@@ -61,10 +73,9 @@ public class MessageListener implements MessageConnection.MessageListener {
             }
 
 
-
             if (command != null) {
                 command.execute();
-                Log.i(TAG,   command.getClass().toString()+"Executed");
+                Log.i(TAG, command.getClass().toString() + "Executed");
             }
 
             activity.runOnUiThread(new Runnable() {
@@ -80,9 +91,10 @@ public class MessageListener implements MessageConnection.MessageListener {
 
 
         } catch (Exception e) {
-            Log.w(TAG, "An exception occurred", e);
+            Log.w(TAG, "An exeption occured", e);
+
         }
 
-    }// end message recevied
+    }
 
-}// end calss
+}

@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import another.me.com.segway.remote.robot.service.BaseService;
 import another.me.com.segway.remote.robot.service.ConnectivityService;
+import another.me.com.segway.remote.robot.service.HeadService;
 import another.me.com.segway.remote.robot.service.StreamVideoService;
 
 public class Receiver extends BroadcastReceiver {
@@ -40,13 +42,17 @@ public class Receiver extends BroadcastReceiver {
     private void startServices() {
         Log.i(TAG, " Start Services ");
         ConnectivityService.getInstance().restartService();
-
         StreamVideoService.getInstance().restartService();
+        HeadService.getInstance().restartService();
+        BaseService.getInstance().restartService();
+
     }
     // stop all Loomo services when loomo in SBV mode
     private void stopServices() {
         Log.i(TAG, "Stop Services");
         ConnectivityService.getInstance().disconnect();
         StreamVideoService.getInstance().disconnect();
+        HeadService.getInstance().disconnect();
+        BaseService.getInstance().disconnect();
     }
 }// end class

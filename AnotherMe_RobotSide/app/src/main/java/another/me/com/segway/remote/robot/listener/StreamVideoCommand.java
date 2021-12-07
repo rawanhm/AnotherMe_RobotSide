@@ -8,6 +8,7 @@ import android.util.Log;
 import com.segway.robot.sdk.baseconnectivity.MessageConnection;
 
 import another.me.com.segway.remote.robot.service.ConnectivityService;
+//import another.me.com.segway.remote.robot.service.HeadService;
 import another.me.com.segway.remote.robot.service.StreamVideoService;
 
 
@@ -31,10 +32,10 @@ public class StreamVideoCommand extends MessageCommand {
             StreamVideoService.getInstance().startTransferringImageStream(mMessageConnection);
 
             // if the received  message request to stop vedio streaming
-        } else if (message[1].equals("stop")) {
-            Log.d(TAG, "stop Video Streaming");
-            StreamVideoService.getInstance().stopTransferringImageStream();
-        }
+        } else  if (message[1].equals("stop")) {
+          Log.d(TAG, "stop Video Streaming");
+          StreamVideoService.getInstance().startTransferringImageStream(mMessageConnection);
+       }
 
     }// end execute
 }// end class

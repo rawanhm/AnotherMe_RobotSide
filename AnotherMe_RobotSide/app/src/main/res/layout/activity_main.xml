@@ -11,15 +11,15 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="29dp"
-        android:layout_height="28dp"
+        android:layout_width="31dp"
+        android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/exit" />
 
     <TextView
         android:id="@+id/text1"
         android:layout_width="match_parent"
-        android:layout_height="143dp"
+        android:layout_height="108dp"
         android:gravity="center"
         android:text="..."
         android:textColor="#212121"
@@ -36,8 +36,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="293dp"
-        android:layout_height="233dp"
+        android:layout_width="305dp"
+        android:layout_height="161dp"
         app:srcCompat="@drawable/logo_transparent" />
 
 </LinearLayout>

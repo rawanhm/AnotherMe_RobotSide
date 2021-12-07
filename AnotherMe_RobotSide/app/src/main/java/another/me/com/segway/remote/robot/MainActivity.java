@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.Button;
 
 
-import com.alibaba.fastjson.serializer.ToStringSerializer;
-
+import another.me.com.segway.remote.robot.service.BaseService;
 import another.me.com.segway.remote.robot.service.ConnectivityService;
+import another.me.com.segway.remote.robot.service.HeadService;
 import another.me.com.segway.remote.robot.service.StreamVideoService;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private StreamVideoService streamVideoService;
-
     private ConnectivityService connectivityService;
-
+    private HeadService headService;
+    private BaseService baseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +89,13 @@ public class MainActivity extends AppCompatActivity {
         return ip;
     }
 
+
     // Create and initialize a new object of the class Connictivity Service and StreamViedo
     private void ServicesInitlaztion() {
         this.connectivityService = new ConnectivityService(this);
         this.streamVideoService = new StreamVideoService(getApplicationContext());
-
+        this.headService = new HeadService(getApplicationContext());
+        this.baseService = new BaseService(getApplicationContext());
     }
 
 
@@ -103,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         this.connectivityService.disconnect();
         this.streamVideoService.disconnect();
+        this.headService.disconnect();
+        this.baseService.disconnect();
+
 
     }
 }// end class

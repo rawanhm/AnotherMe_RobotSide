@@ -7,6 +7,7 @@ import android.util.Log;
 import com.segway.robot.sdk.base.bind.ServiceBinder;
 import com.segway.robot.sdk.baseconnectivity.MessageConnection;
 import com.segway.robot.sdk.connectivity.BufferMessage;
+import com.segway.robot.sdk.locomotion.head.Head;
 import com.segway.robot.sdk.vision.Vision;
 import com.segway.robot.sdk.vision.frame.Frame;
 import com.segway.robot.sdk.vision.stream.StreamType;
@@ -20,13 +21,13 @@ public class StreamVideoService {
     private static final String TAG = "StreamVideoService";
     private final Context context;
 
-    private Vision vision;
+    public Vision vision;
 
     public static StreamVideoService instance;
 
 
     //check if streming viedo initalize or not
-    public static StreamVideoService getInstance() {
+    public static  StreamVideoService getInstance() {
         if (instance == null) {
             throw new IllegalStateException("Stream Video is not initialized ");
         }
@@ -46,10 +47,13 @@ public class StreamVideoService {
         initalization();
     }
 
-    private void initalization () {
+    public void initalization () {
         //initialize the Vision instance
         this.vision = Vision.getInstance();
+
+
         //bind to the service
+
         this.vision.bindService(this.context, new ServiceBinder.BindStateListener() {
             @Override
             // bind video streaming service
@@ -65,6 +69,11 @@ public class StreamVideoService {
                 Log.d(TAG, "Video streaming  unbound");
             }
         });
+
+
+
+
+
     }
 
     public void startTransferringImageStream(final MessageConnection messageConnection) {
@@ -113,13 +122,19 @@ public class StreamVideoService {
                 }
             }
         });
+
+
+
+
+
     }//end startTransferringImageStream
 
     // stop images streaming
-    public void stopTransferringImageStream() {
+   public void stopTransferringImageStream() {
         Log.d(TAG, "stopTransferringImageStream called");
-        // send message to stop transferring image stream
+        //send message to stop transferring image stream
         this.vision.stopListenFrame(StreamType.COLOR);
+
     }
     // calling disconnect() in class LoomoService to stop vedioSreaming service
     public void disconnect() {
